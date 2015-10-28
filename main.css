@@ -1,0 +1,47 @@
+[ng-click],
+[data-ng-click],
+[x-ng-click] 
+{
+   cursor: pointer;
+}
+
+body {
+font-family: PTSans-Bold;
+background-color: silver;
+}
+
+.jumbotron {
+	text-align: center;
+}
+
+.main-header {
+	color: #74BB44;
+}
+
+.jumbotron h1 {
+font-family: PTSans-Bold;
+font-size: 70px;
+color: #74BB44;
+line-height: 75px;
+padding-bottom: 20px;
+}
+
+.darkGreen {
+	color: #417505;
+}
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] 
+{
+   cursor: pointer;
+}
+
+/* sH: */
+/*font-family: PTSans-Bold;
+font-size: 26px;
+color: #74BB44;
+line-height: 33px;*/
+/* Oval 1: */
+/*background: rgba(247,231,27,0.00);
+border: 3px solid #417505;*/
