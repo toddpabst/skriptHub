@@ -11,51 +11,58 @@
 		<link rel="stylesheet" type="text/css" href="main.css">
 	
 	</head>
-<body ng-controller="shController">
+<body ng-controller="shMainController">
 	
 	<nav class="navbar navbar-default">
 	
 	<div class="container-fluid">
 		
 		<div class="row">
-		
-			<div class="col-xs-12">	
-				<ul class ="nav navbar-nav navbar-right">
-					<li><a href="">Home</a></li>
-					<li><a href="">Explore Scripts</a></li>
-					<li><a href="">About</a></li>
-					<li><a href="">Donate</a></li>
-				</ul>
-			</div>	
-		
-		</div>
-	
-		<div class="row">
-		
-			<div class ="col-xs-12">
-			
-				<h1 class="main-header">skript<span class="darkGreen">Hub</span></h1>
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span> 
+           </button>
 
+		
+	<div class="col-xs-12">	
+				<div class ="navbar-left">
+					<h1 class="main-header">skript<span class="darkGreen">Hub</span></h1>
+				</div>
+				<div class="collapse navbar-collapse text-center" id="navcol-1">
+					<ul class ="nav navbar-nav navbar-right">
+						<li role="presentation"><a href="">Home</a></li>
+						<li><a href="">Explore Scripts</a></li>
+						<li><a href="">About</a></li>
+						<li><a href="">Donate</a></li>
+					</ul>
+				 <div class="collapse navbar-collapse text-center" id="navcol-1"></div>	
+		
 			</div>
 		
-		</div>	
+ 
+		</div>
 
-
-	</div>
-	<!-- <div><img class="background1" src="images/skyline2.png"></div> -->
-
-	<script src="main.js"></script>
 
 		<div class="jumbotron">
 			<h1>skript<span class="darkGreen">Hub</span></h1>
 			<p>Find and Leverage Custom AdWords Scripts. Easily.</p>
 			<div class "btn-group" role="group">
-			<br>
+			<!-- <br> -->
 			<button type="button" class="btn btn-default">Login Here</button>
-			<button type="button" class="btn btn-default">Find Scripts</button>
+			<button type="button" class="btn btn-default">Find Scripts</button>			
+		</div>
 		</div>
 
+		<div><img class="background1" src="../sh-images/city2.jpg"></div>
 		
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"></script>
+		<script src="main.js"></script>
+
+
+
 	
 
 

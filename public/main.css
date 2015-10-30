@@ -7,17 +7,23 @@
 
 body {
 font-family: PTSans-Bold;
-background-color: silver;
 }
 
 .jumbotron {
 	text-align: center;
-	padding-top: 80px;
-	padding-bottom: 80px;
 }
 
 .main-header {
 	color: #74BB44;
+}
+
+.background1 {
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100vw;
+	position: center;
+	opacity: .6;
+	z-index: -1;
 }
 
 .jumbotron h1 {
@@ -25,6 +31,7 @@ font-family: PTSans-Bold;
 font-size: 70px;
 color: #74BB44;
 line-height: 75px;
+padding-top: 20px;
 padding-bottom: 20px;
 }
 

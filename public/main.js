@@ -6,3 +6,5 @@ $scope.signIn = function(){
 	$scope.signInForm = true
 	$scope.signUpForm = false
 }
+
+}]);

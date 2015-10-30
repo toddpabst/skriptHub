@@ -1,5 +1,5 @@
 // Include our Model
-var Script = require('../models/scripts');
+var Script = require('../models/models');
 
 // Define Route Handlers
 
@@ -23,13 +23,13 @@ var createScript = function(req, res){
 var findScripts = function(req, res){
 	console.log('REQ PARAMS', req.params)
 	if (req.params.scriptName){
-		Script.findOne({name : req.params.heroName}, function(err, doc){
+		Script.findOne({name : req.params.scriptName}, function(err, doc){
 				res.send(doc)
 		})
 	}
 	else{
 
-		Script.find({}), function(err, docs){
+		Script.find({}, function(err, docs){
 				res.send(docs)
 				//scripts = docs
 		})
