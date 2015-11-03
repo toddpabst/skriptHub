@@ -46,6 +46,9 @@ padding-bottom: 20px;
    cursor: pointer;
 }
 
+.mcc-class {
+	font-size: 30px;
+}
 /* sH: */
 /*font-family: PTSans-Bold;
 font-size: 26px;

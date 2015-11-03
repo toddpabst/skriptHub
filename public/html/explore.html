@@ -48,16 +48,210 @@
 			<p>I know half of my advertising works... I'm just not sure which half.</p>
 			<div class "btn-group" role="group">
 			<!-- <br> -->
-			<button type="button" class="btn btn-default">Optimization Scripts</button>
-			<button type="button" class="btn btn-default">Reporting Scripts</button>
-			<button type="button" class="btn btn-default">Content Scripts</button>	
-			<button type="button" class="btn btn-default">PLA Scripts</button>	
+			<button type="button" ng-click="viewMcc()" class="btn btn-default">MCC Scripts</button>
+			<button type="button" ng-click="viewReporting()" class="btn btn-default">Reporting Scripts</button>
+			<button type="button" ng-click="viewContent()" class="btn btn-default">Content Scripts</button>	
+			<button type="button" ng-click="viewShopping()" class="btn btn-default">Shopping Scripts</button>	
 		</div>
 		</div>
 		
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"></script>
-		<script src="/main.js"></script>
+		<script src="../main.js"></script>
+
+	<div ng-show="showMcc" class="mccScripts">
+		<h2>MCC Scripts</h2>
+		<h3>Get All Accounts</h3>
+		<code><p>function getAllAccounts() {</p>
+  		<p>var accountIterator = MccApp.accounts().get();</p>
+  		<br>
+  		<p>while (accountIterator.hasNext()) {</p>
+    	<p>var account = accountIterator.next();</p>
+    	<p>var accountName = account.getName() ? account.getName() : '--';</p>
+    	<p>Logger.log('%s,%s,%s,%s', account.getCustomerId(), accountName,</p>
+        <p>account.getTimeZone(), account.getCurrencyCode());</p>
+  		<p>}</p>
+		<p>}</p>
+	</code>
+
+		<h3>Get Accounts from Customer ID</h3>
+		<code><p>function getAccountsFromCustomerIds() {</p>
+  		<p>// This is useful when you are reading customer IDs from an external data</p>
+  		<p>// source, such as a Google Spreadsheet.</p>
+  		<br>
+  		<p>// You can also use the condition "CustomerId in ['123-456-7890',</p>
+  		<p>// '345-678-9000', '890-123-6000']".</p>
+  		<p>var accountIterator = MccApp.accounts()</p>
+     	<p> .withIds(['123-456-7890', '345-678-9000', '890-123-6000'])</p>
+     	<p> .get();</p>
+     	<br>
+  		<p>while (accountIterator.hasNext()) {</p>
+   		<p> var account = accountIterator.next();</p>
+   		<p> var accountName = account.getName() ? account.getName() : '--';</p>
+    	<p>	Logger.log('%s,%s,%s,%s', account.getCustomerId(), accountName,</p>
+        <p>account.getTimeZone(), account.getCurrencyCode());</p>
+ 		<p>}</p>
+		<p>}</p>
+	</code>
+
+		<h3>Get Accounts by Stats</h3>
+		<code><p>function getAccountByStats() {</p>
+ 	 	<p>// This is useful when you need to identify accounts that were performing</p>
+ 		<p>// well (or poorly) in a given time frame.</p>
+ 		<br>
+ 	 	<p>var accountIterator = MccApp.accounts()</p>
+     	<p> .withCondition('Clicks > 10')</p>
+      	<p>.forDateRange('LAST_MONTH')</p>
+     	<p> .orderBy('Clicks DESC')</p>
+     	<p> .get();</p>
+     	<br>
+	  	<p>while (accountIterator.hasNext()) {</p>
+   		<p> var account = accountIterator.next();</p>
+    	<p>var stats = account.getStatsFor('LAST_MONTH');</p>
+    	<p>Logger.log('%s,%s,%s', account.getCustomerId(),</p>
+        <p>stats.getClicks().toFixed(0), stats.getImpressions().toFixed(0));</p>
+ 		<p>}</p>
+		<p>}</code></p>
+
+
+</div>
+
+<div ng-show="showReporting" class="reportingScripts">
+		<h2>Reporting Scripts</h2>
+		<h3>Create Spreadsheet Report</h3>
+		<code><p>function exportReportToSpreadsheet() {</p>
+  		<p>var spreadsheet = SpreadsheetApp.create('INSERT_REPORT_NAME_HERE');</p>
+ 		<p>var report = AdWordsApp.report(</p>
+    	<p>'SELECT CampaignName, Clicks, Impressions, Cost ' +</p>
+    	<p>'FROM   CAMPAIGN_PERFORMANCE_REPORT ' +</p>
+   		<p>'WHERE  Impressions < 10 ' +</p>
+   		<p>'DURING LAST_30_DAYS');</p>
+  		<p>report.exportToSheet(spreadsheet.getActiveSheet());</p>
+		<p>}</code></p>
+		<br>
+		<h3>Create a Text Report</h3>
+		<code><p>function runReport() {</p>
+  		<p>// AdWords reports return data faster than campaign management methods</p>
+  		<p>//   and can be used to retrieve basic structural information on</p>
+  		<p>//   your Account, Campaigns, AdGroups, Ads, Keywords, etc. You can refer to</p>
+  		<p>//   https://developers.google.com/adwords/api/docs/guides/structure-reports</p>
+  		<p>//   for more details.</p>
+  		<br>
+  		<p>// See https://developers.google.com/adwords/api/docs/appendix/reports</p>
+  		<p>//   for all the supported report types.</p>
+  		<p>// See https://developers.google.com/adwords/api/docs/guides/awql for</p>
+  		<p>//   details on how to use AWQL.</p>
+  		<p>// See https://developers.google.com/adwords/api/docs/guides/uireports</p>
+  		<p>//   for details on how to map an AdWords UI feature to the corresponding</p>
+  		<p>//   reporting API feature.</p>
+  		<p>var report = AdWordsApp.report(</p>
+      	<p>'SELECT CampaignName, Clicks, Impressions, Cost ' +</p>
+      	<p>'FROM   CAMPAIGN_PERFORMANCE_REPORT ' +</p>
+      	<p>'WHERE  Impressions < 10 ' +</p>
+      	<p>'DURING LAST_30_DAYS');</p>
+      	<br>
+  		<p>var rows = report.rows();</p>
+ 		<p>while (rows.hasNext()) {</p>
+   		<p>var row = rows.next();</p>
+   		<p>var campaignName = row['CampaignName'];</p>
+   		<p>var clicks = row['Clicks'];</p>
+   		<p>var impressions = row['Impressions'];</p>
+   		<p>var cost = row['Cost'];</p>
+   		<p>Logger.log(campaignName + ',' + clicks + ',' + impressions + ',' + cost);</p>
+ 		<p>}</p>
+		<p>}</code></p>
+	</div>
+		
+<div ng-show="showContent" class="contentScripts">
+		<h2>Content Scripts</h2>
+		<h3>Get Stats for All Keywords in Ad Group</h3>
+		<code><p>function getKeywordStats() {</p>
+  		<p>var adGroupIterator = AdWordsApp.adGroups()</p>
+    	<p>.withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')</p>
+     	<p>.get();</p>
+ 	 	<p>if (adGroupIterator.hasNext()) {</p>
+  	 	<p>var adGroup = adGroupIterator.next();</p>
+  	  	<p>var keywordIterator = adGroup.keywords().get();</p>
+    	<p>while (keywordIterator.hasNext()) {</p>
+     	<p>var keyword = keywordIterator.next();</p>
+     	<p>// You can also request reports for pre-defined date ranges. See</p>
+    	<p>// https://developers.google.com/adwords/api/docs/guides/awql,</p>
+      	<p>// DateRangeLiteral section for possible values.</p>
+      	<p>var stats = keyword.getStatsFor('LAST_MONTH');</p>
+      	<p>Logger.log(adGroup.getName() + ', ' + keyword.getText() + ', ' +</p>
+        <p>stats.getClicks() + ', ' + stats.getImpressions());</p>
+   		<p>}</p>
+ 		<p>}</p>
+		<p>}</code></p>
+		<br>
+		<h3>Get All Keywords in Ad Group</h3>
+		<p><code>function getKeywordsInAdGroup() {</p>
+  		<p>var keywordIterator = AdWordsApp.keywords()</p>
+      	<p>.withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')</p>
+      	<p>.get();</p>
+  		<p>if (keywordIterator.hasNext()) {</p>
+    	<p>while (keywordIterator.hasNext()) {</p>
+      	<p>var keyword = keywordIterator.next();</p>
+      	<p>Logger.log(formatKeyword(keyword));</p>
+    	<p>}</p>
+  		<p>}</p>
+		<p>}</p>
+		<br>
+		<p>function formatKeyword(keyword) {</p>
+  		<p>return 'Text : ' + keyword.getText() + '\n' +</p>
+      	<p>'Match type : ' + keyword.getMatchType() + '\n' +</p>
+      	<p>'CPC : ' + keyword.bidding().getCpc() + '\n' +</p>
+      	<p>'Final URL : ' + keyword.urls().getFinalUrl() + '\n' +</p>
+      	<p>'Approval Status : ' + keyword.getApprovalStatus() + '\n' +</p>
+      	<p>'Enabled : ' + keyword.isEnabled() + '\n';</p>
+		<p>}</code></p>
+
+	</div>
+
+<div ng-show="showShopping" class="shoppingScripts">
+		<h2>Shopping Scripts</h2>
+		<p><code>function getAllShoppingCampaigns() {</p>
+  		<p>var campaignIterator = AdWordsApp.shoppingCampaigns().get();</p>
+  		<p>while (campaignIterator.hasNext()) {</p>
+    	<p>var campaign = campaignIterator.next();</p>
+    	<p>Logger.log('Campaign Name: %s', campaign.getName());</p>
+ 		<p>}</p>
+		<p>}</code></p>
+	
+		<h2>Get The Everything Else Product Group</h2>
+		<p><code>function getEverythingElseProductGroup() {</p>
+  		<p>var campaignName = 'INSERT_CAMPAIGN_NAME_HERE';</p>
+  		<p>var adGroupName = 'INSERT_ADGROUP_NAME_HERE';</p>
+  		<br>
+  		<p>var shoppingAdGroup = AdWordsApp.shoppingAdGroups()</p>
+      	<p>.withCondition("CampaignName = '" + campaignName +</p>
+        <p>"' and AdGroupName = '" + adGroupName + "'")</p>
+      	<p>.get()</p>
+      	<p>.next();</p>
+      	<br>
+  		<p>var rootProductGroup = shoppingAdGroup.rootProductGroup();</p>
+  		<p>var childProductGroups = rootProductGroup.children().get();</p>
+ 	 	<p>while (childProductGroups.hasNext()) {</p>
+    	<p>var childProductGroup = childProductGroups.next();</p>
+    	<p>if (childProductGroup.isOtherCase()) {</p>
+      	<p>// Note: Child product groups may not have a max cpc if it has been</p>
+      	<p>// excluded.</p>
+      	<p>Logger.log(</p>
+        <p>'"Everything else" product group found. Type of the product ' +</p>
+        <p>'group is %s and bid is %s.',</p>
+        <p>childProductGroup.getDimension(),</p>
+        <p>childProductGroup.getMaxCpc());</p>
+      	<p>return;</p>
+    	<p>}</p>
+  		<p>}</p>
+  		<p>Logger.log('"Everything else" product group not found under root ' +</p>
+      	<p>'product group.');</p>
+		<p>}</p>
+
+	</div>
+	
+	</div>
+
 
 
 
